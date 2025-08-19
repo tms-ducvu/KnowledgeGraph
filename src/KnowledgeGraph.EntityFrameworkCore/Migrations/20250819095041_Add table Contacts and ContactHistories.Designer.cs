@@ -4,6 +4,7 @@ using KnowledgeGraph.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace KnowledgeGraph.Migrations
 {
     [DbContext(typeof(KnowledgeGraphDbContext))]
-    partial class KnowledgeGraphDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250819095041_Add table Contacts and ContactHistories")]
+    partial class AddtableContactsandContactHistories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

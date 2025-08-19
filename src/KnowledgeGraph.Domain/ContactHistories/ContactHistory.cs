@@ -1,0 +1,32 @@
+﻿using System;
+using Volo.Abp.Domain.Entities.Auditing;
+
+namespace KnowledgeGraph.ContactHistories
+{
+    public class ContactHistory : CreationAuditedEntity<Guid>
+    {
+        public Guid? ContactId { get; set; }
+
+        public string? Name { get; set; }
+
+        public string? Email { get; set; }
+
+        public string? PhoneCode { get; set; }
+
+        public string? PhoneNumber { get; set; }
+
+        public string? AddressStreet { get; set; }
+
+        public string? AddressCity { get; set; }
+
+        public string? AddressCountry { get; set; }
+
+        public string? AddressZipCode { get; set; }
+
+        public string? SyncStatus { get; set; }
+
+        public string? SyncError { get; set; }
+
+        public DateTime? LastSyncTime { get; set; }
+    }
+}
