@@ -1,0 +1,13 @@
+﻿{
+  "applications": {
+    "KnowledgeGraph.Web": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44320",
+      "path": "../../../src/KnowledgeGraph.Web/KnowledgeGraph.Web.csproj",
+      "kubernetesService": ".*-web$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}
