@@ -1,4 +1,7 @@
+﻿using KnowledgeGraph.ContactHistories;
+using KnowledgeGraph.Contacts;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.BlobStoring.Database.EntityFrameworkCore;
@@ -9,9 +12,9 @@ using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
+using Volo.Abp.OpenIddict.EntityFrameworkCore;
 using Volo.Abp.PermissionManagement.EntityFrameworkCore;
 using Volo.Abp.SettingManagement.EntityFrameworkCore;
-using Volo.Abp.OpenIddict.EntityFrameworkCore;
 
 namespace KnowledgeGraph.EntityFrameworkCore;
 
@@ -49,6 +52,9 @@ public class KnowledgeGraphDbContext :
 
     #endregion
 
+    public DbSet<ContactHistory> ContactHistories { get; set; }
+    public DbSet<Contact> Contacts { get; set; }
+
     public KnowledgeGraphDbContext(DbContextOptions<KnowledgeGraphDbContext> options)
         : base(options)
     {
@@ -59,8 +65,6 @@ public class KnowledgeGraphDbContext :
     {
         base.OnModelCreating(builder);
 
-        /* Include modules to your migration db context */
-
         builder.ConfigurePermissionManagement();
         builder.ConfigureSettingManagement();
         builder.ConfigureBackgroundJobs();
@@ -69,14 +73,50 @@ public class KnowledgeGraphDbContext :
         builder.ConfigureIdentity();
         builder.ConfigureOpenIddict();
         builder.ConfigureBlobStoring();
-        
-        /* Configure your own tables/entities inside here */
 
-        //builder.Entity<YourEntity>(b =>
-        //{
-        //    b.ToTable(KnowledgeGraphConsts.DbTablePrefix + "YourEntities", KnowledgeGraphConsts.DbSchema);
-        //    b.ConfigureByConvention(); //auto configure for the base class props
-        //    //...
-        //});
+        builder.Entity<Contact>(b =>
+        {
+            b.ToTable(KnowledgeGraphConsts.DbTablePrefix + "Contacts",
+                KnowledgeGraphConsts.DbSchema);
+            b.TryConfigureConcurrencyStamp();
+            b.TryConfigureExtraProperties();
+            b.TryConfigureObjectExtensions();
+            b.TryConfigureMayHaveCreator();
+            b.TryConfigureMustHaveCreator();
+            b.TryConfigureSoftDelete();
+            b.TryConfigureCreationTime();
+            b.TryConfigureMultiTenant();
+            b.Property(x => x.Name).HasMaxLength(255);
+            b.Property(x => x.Email).HasMaxLength(255);
+            b.Property(x => x.PhoneCode).HasMaxLength(255);
+            b.Property(x => x.PhoneNumber).HasMaxLength(255);
+            b.Property(x => x.AddressStreet).HasMaxLength(255);
+            b.Property(x => x.AddressCity).HasMaxLength(255);
+            b.Property(x => x.AddressCountry).HasMaxLength(255);
+            b.Property(x => x.AddressZipCode).HasMaxLength(255);
+        });
+
+        builder.Entity<ContactHistory>(b =>
+        {
+            b.ToTable(KnowledgeGraphConsts.DbTablePrefix + "ContactHistories",
+                KnowledgeGraphConsts.DbSchema);
+            b.TryConfigureConcurrencyStamp();
+            b.TryConfigureExtraProperties();
+            b.TryConfigureObjectExtensions();
+            b.TryConfigureMayHaveCreator();
+            b.TryConfigureMustHaveCreator();
+            b.TryConfigureSoftDelete();
+            b.TryConfigureCreationTime();
+            b.TryConfigureMultiTenant();
+            b.Property(x => x.ContactId).IsRequired();
+            b.Property(x => x.Name).HasMaxLength(255);
+            b.Property(x => x.Email).HasMaxLength(255);
+            b.Property(x => x.PhoneCode).HasMaxLength(255);
+            b.Property(x => x.PhoneNumber).HasMaxLength(255);
+            b.Property(x => x.AddressStreet).HasMaxLength(255);
+            b.Property(x => x.AddressCity).HasMaxLength(255);
+            b.Property(x => x.AddressCountry).HasMaxLength(255);
+            b.Property(x => x.AddressZipCode).HasMaxLength(255);
+        });
     }
 }
