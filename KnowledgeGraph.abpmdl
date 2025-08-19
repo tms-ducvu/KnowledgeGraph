@@ -1,0 +1,76 @@
+{
+  "template": "app",
+  "imports": {
+    "Volo.Abp.LeptonXLiteTheme": {
+      "version": "4.0.3",
+      "isInstalled": true
+    },
+    "Volo.Abp.Account": {
+      "version": "9.0.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.OpenIddict": {
+      "version": "9.0.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.Identity": {
+      "version": "9.0.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.SettingManagement": {
+      "version": "9.0.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.PermissionManagement": {
+      "version": "9.0.2",
+      "isInstalled": true
+    },
+    "Volo.Abp.FeatureManagement": {
+      "version": "9.0.2",
+      "isInstalled": true
+    }
+  },
+  "folders": {
+    "items": {
+      "src": {}
+    }
+  },
+  "packages": {
+    "KnowledgeGraph.Application": {
+      "path": "src/KnowledgeGraph.Application/KnowledgeGraph.Application.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.Domain.Shared": {
+      "path": "src/KnowledgeGraph.Domain.Shared/KnowledgeGraph.Domain.Shared.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.Application.Contracts": {
+      "path": "src/KnowledgeGraph.Application.Contracts/KnowledgeGraph.Application.Contracts.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.HttpApi": {
+      "path": "src/KnowledgeGraph.HttpApi/KnowledgeGraph.HttpApi.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.HttpApi.Client": {
+      "path": "src/KnowledgeGraph.HttpApi.Client/KnowledgeGraph.HttpApi.Client.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.Web": {
+      "path": "src/KnowledgeGraph.Web/KnowledgeGraph.Web.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.EntityFrameworkCore": {
+      "path": "src/KnowledgeGraph.EntityFrameworkCore/KnowledgeGraph.EntityFrameworkCore.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.DbMigrator": {
+      "path": "src/KnowledgeGraph.DbMigrator/KnowledgeGraph.DbMigrator.abppkg",
+      "folder": "src"
+    },
+    "KnowledgeGraph.Domain": {
+      "path": "src/KnowledgeGraph.Domain/KnowledgeGraph.Domain.abppkg",
+      "folder": "src"
+    }
+  }
+}
