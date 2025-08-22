@@ -7,6 +7,8 @@ using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.UI.Navigation;
 
+
+
 namespace KnowledgeGraph.Web.Menus;
 
 public class KnowledgeGraphMenuContributor : IMenuContributor
@@ -34,6 +36,26 @@ public class KnowledgeGraphMenuContributor : IMenuContributor
             )
         );
 
+        //Contacts Group
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "KnowledgeGraph.Contacts",
+                l["Menu:Contacts"],
+                icon: "fa fa-address-book"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "KnowledgeGraph.Contacts.Contacts",
+                    l["Menu:Contacts"],
+                    url: "/Contacts"
+                )
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "KnowledgeGraph.Contacts.ContactHistories",
+                    l["Menu:ContactHistories"],
+                    url: "/ContactHistories"
+                )
+            )
+        );
 
         //Administration
         var administration = context.Menu.GetAdministration();
@@ -42,10 +64,8 @@ public class KnowledgeGraphMenuContributor : IMenuContributor
         //Administration->Identity
         administration.SetSubItemOrder(IdentityMenuNames.GroupName, 1);
         
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 3);
-
         //Administration->Settings
-        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 7);
+        administration.SetSubItemOrder(SettingManagementMenuNames.GroupName, 2);
         
         return Task.CompletedTask;
     }

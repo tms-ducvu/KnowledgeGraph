@@ -1,0 +1,57 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.ContactHistories
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model ViewModalModel
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/ContactHistories/ViewModal" autocomplete="off">
+    <abp-modal id="ContactHistoryViewModal">
+        <abp-modal-header title="@L["ViewContactHistory"].Value"></abp-modal-header>
+        
+        <abp-modal-body>
+            <!-- Hidden ID field -->
+            <abp-input asp-for="Id" type="hidden" />
+            
+            <!-- Basic Information -->
+            <abp-input asp-for="ContactHistory.Name" label="@L["Name"].Value" readonly="true" />
+            
+            <abp-input asp-for="ContactHistory.Email" label="@L["Email"].Value" type="email" readonly="true" />
+            
+            <!-- Phone Information -->
+            <abp-row>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="ContactHistory.PhoneCode" label="@L["PhoneCode"].Value" readonly="true" />
+                </abp-column>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="ContactHistory.PhoneNumber" label="@L["PhoneNumber"].Value" readonly="true" />
+                </abp-column>
+            </abp-row>
+            
+            <!-- Address Information -->
+            <abp-input asp-for="ContactHistory.AddressStreet" label="@L["AddressStreet"].Value" readonly="true" />
+            
+            <abp-row>
+                <abp-column size-md="_4">
+                    <abp-input asp-for="ContactHistory.AddressCity" label="@L["AddressCity"].Value" readonly="true" />
+                </abp-column>
+                <abp-column size-md="_4">
+                    <abp-input asp-for="ContactHistory.AddressCountry" label="@L["AddressCountry"].Value" readonly="true" />
+                </abp-column>
+                <abp-column size-md="_4">
+                    <abp-input asp-for="ContactHistory.AddressZipCode" label="@L["AddressZipCode"].Value" readonly="true" />
+                </abp-column>
+            </abp-row>
+            
+            <!-- Creation Time (Read-only) -->
+            <abp-input asp-for="ContactHistory.CreationTime" label="@L["CreationTime"].Value" readonly="true" />
+        </abp-modal-body>
+        
+        <abp-modal-footer buttons="@(AbpModalButtons.Close)"></abp-modal-footer>
+    </abp-modal>
+</form>

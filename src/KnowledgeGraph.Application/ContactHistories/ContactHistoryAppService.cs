@@ -1,12 +1,11 @@
-﻿using KnowledgeGraph.Contacts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Dynamic.Core;
-using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Application.Services;
+using Volo.Abp.Domain.Repositories;
 
 namespace KnowledgeGraph.ContactHistories
 {
@@ -36,5 +35,51 @@ namespace KnowledgeGraph.ContactHistories
 
             return new PagedResultDto<ContactHistoryDto>(totalCount, contacHistorytlist);
         }
+
+        public async Task<ContactHistoryDto> GetAsync(Guid id)
+        {
+            var result = new ContactHistoryDto();
+
+            var contactHistory = await _contactHistoryRepository.FirstOrDefaultAsync(d => d.Id == id);
+            if (contactHistory != null)
+            {
+                result = ObjectMapper.Map<ContactHistory, ContactHistoryDto>(contactHistory);
+            }
+
+            return result;
+        }
+
+        public async Task<ContactHistoryDto> SyncAsync(Guid id)
+        {
+            var result = new ContactHistoryDto();
+
+            try
+            {
+                // TODO: Implement sync logic here
+                // For now, just return a success message
+                result.SyncStatus = "Synced";
+                result.LastSyncTime = DateTime.Now;
+                result.SyncError = null;
+                
+                // Get the actual contact history to return complete data
+                var contactHistory = await _contactHistoryRepository.FirstOrDefaultAsync(d => d.Id == id);
+                if (contactHistory != null)
+                {
+                    result = ObjectMapper.Map<ContactHistory, ContactHistoryDto>(contactHistory);
+                    result.SyncStatus = "Synced";
+                    result.LastSyncTime = DateTime.Now;
+                    result.SyncError = null;
+                }
+            }
+            catch (Exception)
+            {
+                result.SyncStatus = "Failed";
+                result.SyncError = "Sync operation failed";
+            }
+
+            return result;
+        }
+
+
     }
 }

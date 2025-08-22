@@ -49,6 +49,22 @@ namespace KnowledgeGraph.Contacts
 
                 var res = await _contactRepository.InsertAsync(entity);
 
+                var history = new ContactHistory
+                {
+                    ContactId = entity.Id,
+                    Name = entity.Name,
+                    Email = entity.Email,
+                    PhoneCode = entity.PhoneCode,
+                    PhoneNumber = entity.PhoneNumber,
+                    AddressStreet = entity.AddressStreet,
+                    AddressCity = entity.AddressCity,
+                    AddressCountry = entity.AddressCountry,
+                    AddressZipCode = entity.AddressZipCode,
+                };
+
+                await _contactHistoryRepository.InsertAsync(history);
+
+
                 result.data = ObjectMapper.Map<Contact, ContactDto>(entity);
 
                 return result;
@@ -83,7 +99,7 @@ namespace KnowledgeGraph.Contacts
 
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 result.message = "Deletion Contact failed!";
                 result.success = false;
@@ -102,7 +118,7 @@ namespace KnowledgeGraph.Contacts
                     .WhereIf(!string.IsNullOrEmpty(input.Name), x => !string.IsNullOrEmpty(x.Name) && x.Name.ToLower().Contains(input.Name!.ToLower()))
                     .WhereIf(!string.IsNullOrEmpty(input.Email), x => !string.IsNullOrEmpty(x.Email) && x.Email.ToLower().Contains(input.Email!.ToLower()))
                     .WhereIf(!string.IsNullOrEmpty(input.PhoneNumber), x => !string.IsNullOrEmpty(x.PhoneNumber) && x.PhoneNumber.ToLower().Contains(input.PhoneNumber!.ToLower()))
-                    .WhereIf(input.IsDeleted != null, x => x.IsDeleted == input.IsDeleted.Value)
+                    .Where(x => x.IsDeleted == false) // Chỉ lấy contact chưa bị xóa
                     .OrderBy(input.Sorting ?? "CreationTime DESC");
 
                 var totalCount = await AsyncExecuter.CountAsync(contactQuery);
@@ -140,6 +156,18 @@ namespace KnowledgeGraph.Contacts
                     result.success = false;
                     return result;
                 }
+                
+
+                contact.Name = input.Name;
+                contact.Email = input.Email;
+                contact.PhoneCode = input.PhoneCode;
+                contact.PhoneNumber = input.PhoneNumber;
+                contact.AddressStreet = input.AddressStreet;
+                contact.AddressCity = input.AddressCity;
+                contact.AddressCountry = input.AddressCountry;
+                contact.AddressZipCode = input.AddressZipCode;
+
+                var res = await _contactRepository.UpdateAsync(contact);
 
                 var history = new ContactHistory
                 {
@@ -155,17 +183,6 @@ namespace KnowledgeGraph.Contacts
                 };
 
                 await _contactHistoryRepository.InsertAsync(history);
-
-                contact.Name = input.Name;
-                contact.Email = input.Email;
-                contact.PhoneCode = input.PhoneCode;
-                contact.PhoneNumber = input.PhoneNumber;
-                contact.AddressStreet = input.AddressStreet;
-                contact.AddressCity = input.AddressCity;
-                contact.AddressCountry = input.AddressCountry;
-                contact.AddressZipCode = input.AddressZipCode;
-
-                var res = await _contactRepository.UpdateAsync(contact);
 
                 result.data = ObjectMapper.Map<Contact, ContactDto>(res);
 
