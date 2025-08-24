@@ -1,0 +1,51 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.Contacts
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model CreateModalModel
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Contacts/CreateModal" autocomplete="off">
+    <abp-modal id="ContactCreateModal">
+        <abp-modal-header title="@L["NewContact"].Value"></abp-modal-header>
+        
+        <abp-modal-body>
+            <!-- Basic Information -->
+            <abp-input asp-for="Contact.Name" label="@L["Name"].Value" />
+            
+            <abp-input asp-for="Contact.Email" label="@L["Email"].Value" type="email" />
+            
+            <!-- Phone Information -->
+            <abp-row>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="Contact.PhoneCode" label="@L["PhoneCode"].Value" />
+                </abp-column>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="Contact.PhoneNumber" label="@L["PhoneNumber"].Value" />
+                </abp-column>
+            </abp-row>
+            
+            <!-- Address Information -->
+            <abp-input asp-for="Contact.AddressStreet" label="@L["AddressStreet"].Value" />
+            
+            <abp-row>
+                <abp-column size-md="_4">
+                    <abp-input asp-for="Contact.AddressCity" label="@L["AddressCity"].Value" />
+                </abp-column>
+                <abp-column size-md="_4">
+                    <abp-input asp-for="Contact.AddressCountry" label="@L["AddressCountry"].Value" />
+                </abp-column>
+                <abp-column size-md="_4">
+                    <abp-input asp-for="Contact.AddressZipCode" label="@L["AddressZipCode"].Value" />
+                </abp-column>
+            </abp-row>
+        </abp-modal-body>
+        
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel | AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

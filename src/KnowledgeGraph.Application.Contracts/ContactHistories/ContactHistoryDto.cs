@@ -25,7 +25,7 @@ namespace KnowledgeGraph.ContactHistories
 
         public string? SyncStatus { get; set; }
         
-        public string? SyncEror { get; set; }
+        public string? SyncError { get; set; }
 
         public DateTime? LastSyncTime{ get; set; }
     }

@@ -1,0 +1,29 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.Contacts
+@model IndexModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@section scripts {
+    <abp-script src="/Pages/Contacts/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Contacts"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewContactButton" 
+                           icon="plus" 
+                           text="@L["NewContact"].Value" 
+                           button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="ContactsTable"></abp-table>
+    </abp-card-body>
+</abp-card>
