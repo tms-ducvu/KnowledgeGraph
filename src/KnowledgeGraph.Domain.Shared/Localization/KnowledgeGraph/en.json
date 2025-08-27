@@ -31,6 +31,8 @@
     "ViewContactHistory": "View Contact History",
     "SyncSuccess": "Contact history synced successfully!",
     "SyncFailed": "Sync failed",
-    "ContactHistorySyncConfirmationMessage": "Are you sure to sync the contact history '{0}'?"
+    "ContactHistorySyncConfirmationMessage": "Are you sure to sync the contact history '{0}'?",
+    "SyncStatus": "Sync status",
+    "SyncLog": "Sync Log"
   }
 }

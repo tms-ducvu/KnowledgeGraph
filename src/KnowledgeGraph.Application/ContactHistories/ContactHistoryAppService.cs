@@ -59,7 +59,7 @@ namespace KnowledgeGraph.ContactHistories
                 // For now, just return a success message
                 result.SyncStatus = "Synced";
                 result.LastSyncTime = DateTime.Now;
-                result.SyncError = null;
+                result.SyncLog = null;
                 
                 // Get the actual contact history to return complete data
                 var contactHistory = await _contactHistoryRepository.FirstOrDefaultAsync(d => d.Id == id);
@@ -68,13 +68,13 @@ namespace KnowledgeGraph.ContactHistories
                     result = ObjectMapper.Map<ContactHistory, ContactHistoryDto>(contactHistory);
                     result.SyncStatus = "Synced";
                     result.LastSyncTime = DateTime.Now;
-                    result.SyncError = null;
+                    result.SyncLog = null;
                 }
             }
             catch (Exception)
             {
                 result.SyncStatus = "Failed";
-                result.SyncError = "Sync operation failed";
+                result.SyncLog = "Sync operation failed";
             }
 
             return result;

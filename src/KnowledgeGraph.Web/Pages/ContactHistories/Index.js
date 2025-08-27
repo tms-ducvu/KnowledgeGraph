@@ -107,6 +107,10 @@
                     render: function (data) {
                         return luxon.DateTime.fromISO(data).toLocaleString(luxon.DateTime.DATETIME_SHORT);
                     }
+                },
+                {
+                    title: l('SyncStatus'),
+                    data: "syncStatus"
                 }
             ]
         })

@@ -117,6 +117,8 @@ public class KnowledgeGraphDbContext :
             b.Property(x => x.AddressCity).HasMaxLength(255);
             b.Property(x => x.AddressCountry).HasMaxLength(255);
             b.Property(x => x.AddressZipCode).HasMaxLength(255);
+            b.Property(x => x.SyncStatus).HasMaxLength(50);
+            b.Property(x => x.SyncLog).HasColumnType("nvarchar(max)");
         });
     }
 }

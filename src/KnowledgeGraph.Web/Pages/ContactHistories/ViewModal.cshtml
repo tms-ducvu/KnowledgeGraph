@@ -50,6 +50,10 @@
             
             <!-- Creation Time (Read-only) -->
             <abp-input asp-for="ContactHistory.CreationTime" label="@L["CreationTime"].Value" readonly="true" />
+
+            <abp-input asp-for="ContactHistory.SyncStatus" label="@L["SyncStatus"].Value" readonly="true" />
+
+            <abp-input asp-for="ContactHistory.SyncLog" label="@L["SyncLog"].Value" readonly="true" />
         </abp-modal-body>
         
         <abp-modal-footer buttons="@(AbpModalButtons.Close)"></abp-modal-footer>
