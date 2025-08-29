@@ -1,0 +1,29 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.Reviews
+@model IndexModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@section scripts {
+    <abp-script src="/Pages/Reviews/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Reviews"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewReviewButton" 
+                           icon="plus" 
+                           text="@L["NewReview"].Value" 
+                           button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="ReviewsTable"></abp-table>
+    </abp-card-body>
+</abp-card>

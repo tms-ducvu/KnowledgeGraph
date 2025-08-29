@@ -33,5 +33,11 @@ public class KnowledgeGraphApplicationModule : AbpModule
         
         // Explicit registration for ContactHistoryService
         context.Services.AddTransient<KnowledgeGraph.ContactHistories.IContactHistoryService, KnowledgeGraph.ContactHistories.ContactHistoryAppService>();
+
+        // Explicit registration for EntityService
+        context.Services.AddTransient<KnowledgeGraph.Entities.IEntityService, KnowledgeGraph.Entities.EntityAppService>();
+
+        // Explicit registration for ReviewService
+        context.Services.AddTransient<KnowledgeGraph.Reviews.IReviewService, KnowledgeGraph.Reviews.ReviewAppService>();
     }
 }

@@ -57,6 +57,36 @@ public class KnowledgeGraphMenuContributor : IMenuContributor
             )
         );
 
+        //Entities Group
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "KnowledgeGraph.Entities",
+                l["Menu:Entities"],
+                icon: "fa fa-building"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "KnowledgeGraph.Entities.Entities",
+                    l["Menu:Entities"],
+                    url: "/Entities"
+                )
+            )
+        );
+
+        //Reviews Group
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "KnowledgeGraph.Reviews",
+                l["Menu:Reviews"],
+                icon: "fa fa-star"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "KnowledgeGraph.Reviews.Reviews",
+                    l["Menu:Reviews"],
+                    url: "/Reviews"
+                )
+            )
+        );
+
         //Administration
         var administration = context.Menu.GetAdministration();
         administration.Order = 5;

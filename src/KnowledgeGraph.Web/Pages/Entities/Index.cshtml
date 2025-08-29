@@ -1,0 +1,29 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.Entities
+@model IndexModel
+@using Microsoft.Extensions.Localization
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@section scripts {
+    <abp-script src="/Pages/Entities/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Entities"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewEntityButton" 
+                           icon="plus" 
+                           text="@L["NewEntity"].Value" 
+                           button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="EntitiesTable"></abp-table>
+    </abp-card-body>
+</abp-card>

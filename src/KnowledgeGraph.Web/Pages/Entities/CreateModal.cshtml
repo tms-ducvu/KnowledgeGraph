@@ -1,0 +1,46 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.Entities
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model CreateModalModel
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Entities/CreateModal" autocomplete="off">
+    <abp-modal id="EntityCreateModal">
+        <abp-modal-header title="@L["NewEntity"].Value"></abp-modal-header>
+        
+        <abp-modal-body>
+            <!-- Basic Information -->
+            <abp-input asp-for="Entity.EntityName" label="@L["EntityName"].Value" />
+            
+            <abp-input asp-for="Entity.EntityCode" label="@L["EntityCode"].Value" />
+            
+            <abp-input asp-for="Entity.EntityBusinessType" label="@L["EntityBusinessType"].Value" />
+            
+            <!-- Contact Information -->
+            <abp-row>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="Entity.EntityPhone" label="@L["EntityPhone"].Value" />
+                </abp-column>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="Entity.EntityEmail" label="@L["EntityEmail"].Value" type="email" />
+                </abp-column>
+            </abp-row>
+            
+            <!-- Address Information -->
+            <abp-input asp-for="Entity.EntityAddress" label="@L["EntityAddress"].Value" />
+            
+            <abp-input asp-for="Entity.EntityWebsite" label="@L["EntityWebsite"].Value" type="url" />
+            
+            <!-- Status -->
+            <abp-input asp-for="Entity.EntityIsActive" label="@L["EntityIsActive"].Value" type="checkbox" />
+        </abp-modal-body>
+        
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel | AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

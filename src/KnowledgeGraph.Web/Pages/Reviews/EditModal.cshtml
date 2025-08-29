@@ -1,0 +1,53 @@
+@page
+@using KnowledgeGraph.Localization
+@using KnowledgeGraph.Web.Pages.Reviews
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@model EditModalModel
+@inject IStringLocalizer<KnowledgeGraphResource> L
+
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/Reviews/EditModal" autocomplete="off">
+    <abp-modal id="ReviewEditModal">
+        <abp-modal-header title="@L["EditReview"].Value"></abp-modal-header>
+        
+        <abp-modal-body>
+            <!-- Hidden ID field -->
+            <abp-input asp-for="Id" type="hidden" />
+            
+            <!-- Entity Selection -->
+            <abp-select asp-for="Review.ReviewEntityId" asp-items="@Model.EntityList" label="@L["ReviewEntityId"].Value" required="true" />
+            
+            <!-- Reviewer Information -->
+            <abp-input asp-for="Review.ReviewerName" label="@L["ReviewerName"].Value" required="true" />
+            
+            <!-- Platform Selection -->
+            <abp-select asp-for="Review.ReviewPlatformId" asp-items="@Model.PlatformList" label="@L["ReviewPlatformId"].Value" />
+            
+            <!-- Review Date and Rating -->
+            <abp-row>
+                <abp-column size-md="_6">
+                    <abp-input asp-for="Review.ReviewReviewDate" label="@L["ReviewReviewDate"].Value" type="date" required="true" />
+                </abp-column>
+                <abp-column size-md="_6">
+                    <abp-select asp-for="Review.ReviewRating" asp-items="@Model.RatingList" label="@L["ReviewRating"].Value" required="true" />
+                </abp-column>
+            </abp-row>
+            
+            <!-- Review Content -->
+            <div class="form-group">
+                <label asp-for="Review.ReviewContent">@L["ReviewContent"].Value</label>
+                <textarea asp-for="Review.ReviewContent" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Review.ReviewContent" class="text-danger"></span>
+            </div>
+            
+            <!-- Sync Time -->
+            @* <abp-input asp-for="Review.ReviewSyncTime" label="@L["ReviewSyncTime"].Value" type="datetime-local" /> *@
+        </abp-modal-body>
+        
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel | AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

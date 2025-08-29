@@ -4,6 +4,7 @@ using KnowledgeGraph.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Volo.Abp.EntityFrameworkCore;
 
@@ -12,9 +13,11 @@ using Volo.Abp.EntityFrameworkCore;
 namespace KnowledgeGraph.Migrations
 {
     [DbContext(typeof(KnowledgeGraphDbContext))]
-    partial class KnowledgeGraphDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250829043549_Add table Entities and EntityHistories")]
+    partial class AddtableEntitiesandEntityHistories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -255,8 +258,7 @@ namespace KnowledgeGraph.Migrations
                     b.ToTable("AppEntities", (string)null);
                 });
 
-
-            modelBuilder.Entity("KnowledgeGraph.Reviews.Review", b =>
+            modelBuilder.Entity("KnowledgeGraph.Entities.EntityHistory", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -284,6 +286,41 @@ namespace KnowledgeGraph.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletionTime");
 
+                    b.Property<string>("EntityAddress")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityBusinessType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("EntityCode")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("EntityEmail")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<Guid>("EntityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("EntityIsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("EntityName")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("EntityPhone")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("EntityWebsite")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<string>("ExtraProperties")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -303,33 +340,9 @@ namespace KnowledgeGraph.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("LastModifierId");
 
-                    b.Property<string>("ReviewContent")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ReviewEntityId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("ReviewPlatformId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("ReviewRating")
-                        .HasMaxLength(5)
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ReviewReviewDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ReviewSyncTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ReviewerName")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("AppReviews", (string)null);
+                    b.ToTable("AppEntityHistories", (string)null);
                 });
 
             modelBuilder.Entity("Volo.Abp.AuditLogging.AuditLog", b =>

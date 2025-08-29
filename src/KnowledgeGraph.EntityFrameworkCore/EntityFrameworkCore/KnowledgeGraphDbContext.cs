@@ -1,5 +1,7 @@
 ﻿using KnowledgeGraph.ContactHistories;
 using KnowledgeGraph.Contacts;
+using KnowledgeGraph.Entities;
+using KnowledgeGraph.Reviews;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
@@ -54,6 +56,8 @@ public class KnowledgeGraphDbContext :
 
     public DbSet<ContactHistory> ContactHistories { get; set; }
     public DbSet<Contact> Contacts { get; set; }
+    public DbSet<Entity> Entities { get; set; }
+    public DbSet<Review> Reviews { get; set; }
 
     public KnowledgeGraphDbContext(DbContextOptions<KnowledgeGraphDbContext> options)
         : base(options)
@@ -120,5 +124,53 @@ public class KnowledgeGraphDbContext :
             b.Property(x => x.SyncStatus).HasMaxLength(50);
             b.Property(x => x.SyncLog).HasColumnType("nvarchar(max)");
         });
+
+        builder.Entity<Entity>(b =>
+        {
+            b.ToTable(KnowledgeGraphConsts.DbTablePrefix + "Entities",
+                KnowledgeGraphConsts.DbSchema);
+            b.TryConfigureConcurrencyStamp();
+            b.TryConfigureExtraProperties();
+            b.TryConfigureObjectExtensions();
+            b.TryConfigureMayHaveCreator();
+            b.TryConfigureMustHaveCreator();
+            b.TryConfigureSoftDelete();
+            b.TryConfigureCreationTime();
+            b.TryConfigureMultiTenant();
+            b.Property(x => x.EntityName).HasMaxLength(255);
+            b.Property(x => x.EntityCode).HasMaxLength(50);
+            b.Property(x => x.EntityBusinessType).HasMaxLength(100);
+            b.Property(x => x.EntityPhone).HasMaxLength(20);
+            b.Property(x => x.EntityEmail).HasMaxLength(255);
+            b.Property(x => x.EntityWebsite).HasMaxLength(255);
+            b.Property(x => x.EntityIsActive).HasDefaultValue(false);
+        });
+
+
+
+        builder.Entity<Review>(b =>
+        {
+            b.ToTable(KnowledgeGraphConsts.DbTablePrefix + "Reviews",
+                KnowledgeGraphConsts.DbSchema);
+            b.TryConfigureConcurrencyStamp();
+            b.TryConfigureExtraProperties();
+            b.TryConfigureObjectExtensions();
+            b.TryConfigureMayHaveCreator();
+            b.TryConfigureMustHaveCreator();
+            b.TryConfigureSoftDelete();
+            b.TryConfigureCreationTime();
+            b.TryConfigureMultiTenant();
+            b.Property(x => x.ReviewEntityId).IsRequired();
+            b.Property(x => x.ReviewerName).HasMaxLength(255).IsRequired();
+            b.Property(x => x.ReviewPlatformId).IsRequired();
+            b.Property(x => x.ReviewReviewDate).IsRequired();
+            b.Property(x => x.ReviewRating).IsRequired();
+            b.Property(x => x.ReviewRating).HasMaxLength(5);
+            b.Property(x => x.ReviewContent).HasColumnType("nvarchar(max)").IsRequired(false);
+            b.Property(x => x.ReviewSyncTime).IsRequired(false);
+        });
+
+
+
     }
 }
